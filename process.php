@@ -3,7 +3,10 @@ include 'db.php';
 
 if (isset($_POST['tea'])) {
 	$team = mysqli_real_escape_string($conn, $_POST['team']);
-
+	if (empty($team)) {
+		echo 9;
+		exit();
+	}
 	$checkk = mysqli_query($conn, "SELECT * FROM teams WHERE team = '$team'");
 	$check = mysqli_num_rows($checkk);
 	
@@ -31,7 +34,10 @@ if (isset($_POST['teamm'])) {
 
 if (isset($_POST['first'])) {
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
-
+	if (empty($username)) {
+			echo 9;
+			exit();
+		}
 	$checkk = mysqli_query($conn, "SELECT * FROM joined WHERE username = '$username'");
 	$check = mysqli_num_rows($checkk);
 	

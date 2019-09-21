@@ -81,8 +81,10 @@
             success: function(response){
               if (response == 0) {
                 $('#join').prop('disabled', false);
-                $('#info').html('');
-                $('#change').html('<span class="alert alert-danger">'+username+' already belongs in another team</span>');
+                $('#info').html(username+' already belongs in another team');
+              } else if (response == 9) {
+                $('#join').prop('disabled', false);
+                $('#info').html('You thought you could get away with an empty post. Smh.');
               } else if (response == 1) {
                 ajaxCall2();
               }

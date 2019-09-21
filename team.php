@@ -90,8 +90,10 @@
             success: function(response){
               if (response == 0) {
                 $('#join').prop('disabled', false);
-                $('#info').html('');
                 $('#info').html(team+' Exists. <a href="javascript:;" onCLick="edit('+url+')">Update URL Instead?</a>');
+              } else if (response == 9) {
+                $('#join').prop('disabled', false);
+                $('#info').html('Please fill something before you submit, okay?');
               } else if (response == 1) {
                 ajaxCall2();
               }
