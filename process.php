@@ -1,6 +1,6 @@
 <?php
 include 'db.php';
-
+//verifying team doesnt exist
 if (isset($_POST['tea'])) {
 	$team = mysqli_real_escape_string($conn, $_POST['team']);
 	if (empty($team)) {
@@ -18,7 +18,7 @@ if (isset($_POST['tea'])) {
 		exit();
 	}
 }
-
+// what is run after team name has been verified
 if (isset($_POST['teamm'])) {
 	$team = mysqli_real_escape_string($conn, $_POST['team']);
 	$url = mysqli_real_escape_string($conn, $_POST['url']);
@@ -31,7 +31,7 @@ if (isset($_POST['teamm'])) {
 			echo 0;
 	}
 }
-
+//verifying user doesnt exist
 if (isset($_POST['first'])) {
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	if (empty($username)) {
@@ -49,7 +49,7 @@ if (isset($_POST['first'])) {
 		exit();
 	}
 }
-
+//what is run after username has been verified
 if (isset($_POST['second'])) {
 	$username = mysqli_real_escape_string($conn, $_POST['username']);
 	$team_count = mysqli_query($conn, "SELECT * FROM teams WHERE count < 20 ORDER BY RAND() LIMIT 1");
@@ -77,7 +77,21 @@ if (isset($_POST['second'])) {
 		echo 0;
 	}
 }
+// updates team url
+if (isset($_POST['edit'])) {
+	$team = mysqli_real_escape_string($conn, $_POST['team']);
+	$url = mysqli_real_escape_string($conn, $_POST['url']);
 
+	$edit = mysqli_query($conn, "UPDATE teams SET url = '$url' WHERE team = '$team'");
+	
+	if ($edit) {
+		echo 1;
+	} else {
+		echo 0;
+	}
+}
+
+//loads the teams in the export dropdown
 if (isset($_POST['drop'])) {
 	$result = mysqli_query($conn, "SELECT * FROM teams ORDER BY team ASC");
 	 

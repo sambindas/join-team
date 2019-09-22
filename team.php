@@ -77,6 +77,29 @@
   <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/argon.mine209.js?v=1.0.0"></script>
   <script type="text/javascript">
+     function edit() {
+      let team = $('#team').val();
+      let url = $('#url').val();
+          $('#info').html('Updating URL...');
+          $.ajax({
+            type: 'post',
+            url: 'process.php',
+            data: {team: team, url: url, edit: 'team'},
+            success: function(response){
+              if (response == 0) {
+                $('#join').prop('disabled', false);
+                $('#info').html('');
+                $('#change').html('<span class="alert alert-danger">An error occured! Please try again</span>');
+              } else {
+                $('#team').val('');
+                $('#url').val('');
+                $('#join').prop('disabled', false);
+                $('#change').html('');
+                $('#info').html('URL for '+team+' updated successfully.');
+              }
+            }
+          });
+         }
     $(document).ready(function(){
       $('#join').click(function(){
         $(this).prop('disabled', true);
@@ -90,7 +113,9 @@
             success: function(response){
               if (response == 0) {
                 $('#join').prop('disabled', false);
-                $('#info').html(team+' Exists. <a href="javascript:;" onCLick="edit('+url+')">Update URL Instead?</a>');
+                let arg = url+', '+team;
+                console.log(arg)
+                $('#info').html(team+' Exists o. <a href="javascript:;" onCLick="edit()">Update URL Instead?</a>');
               } else if (response == 9) {
                 $('#join').prop('disabled', false);
                 $('#info').html('Please fill something before you submit, okay?');
@@ -123,27 +148,7 @@
          }
       });
 
-        function edit(urll) {
-          $('#info').html('Updating URL...');
-          $.ajax({
-            type: 'post',
-            url: 'process.php',
-            data: {team: teamn, url: urll, uurl: 'team'},
-            success: function(response){
-              if (response == 0) {
-                $('#join').prop('disabled', false);
-                $('#info').html('');
-                $('#change').html('<span class="alert alert-danger">An error occured! Please try again</span>');
-              } else {
-                $('#team').val('');
-                $('#url').val('');
-                $('#join').prop('disabled', false);
-                $('#change').html('');
-                $('#info').html(team+' added successfully.');
-              }
-            }
-          });
-         }
+       
     });
   </script>
 </body>
